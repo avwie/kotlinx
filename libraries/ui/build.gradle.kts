@@ -4,5 +4,16 @@ plugins {
 }
 
 kotlin {
+    js(IR) {
+        browser()
+    }
     jvm()
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.jetbrains.coroutines.core)
+            }
+        }
+    }
 }

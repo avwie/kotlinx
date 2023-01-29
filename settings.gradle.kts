@@ -27,3 +27,4 @@ dependencyResolutionManagement {
 }
 
 include(":libraries:ui")
+include(":libraries:ui-compose")
