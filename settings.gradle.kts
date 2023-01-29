@@ -3,7 +3,6 @@ rootProject.name = "kotlinx"
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 
@@ -28,3 +27,5 @@ dependencyResolutionManagement {
 
 include(":libraries:ui")
 include(":libraries:ui-compose")
+
+include(":examples:simulation")

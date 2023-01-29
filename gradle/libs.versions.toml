@@ -2,7 +2,7 @@
 
 # Jetbrains
 jetbrains-kotlin = "1.8.0"
-jetbrains-compose = "1.2.1"
+jetbrains-compose = "1.2.2"
 jetbrains-coroutines-core = "1.6.4"
 jetbrains-datetime = "0.4.0"
 jetbrains-serialization-json = "1.4.1"
@@ -31,3 +31,5 @@ kodein-di-compose = { module = "org.kodein.di:kodein-di-framework-compose", vers
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "jetbrains-kotlin" }
+compose = { id = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrains-compose"}

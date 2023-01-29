@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
-    id("publish-to-space")
     id("org.jetbrains.compose")
+    id("publish-to-space")
 }
 
 kotlin {
