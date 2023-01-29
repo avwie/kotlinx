@@ -1,0 +1,33 @@
+[versions]
+
+# Jetbrains
+jetbrains-kotlin = "1.8.0"
+jetbrains-compose = "1.2.1"
+jetbrains-coroutines-core = "1.6.4"
+jetbrains-datetime = "0.4.0"
+jetbrains-serialization-json = "1.4.1"
+jetbrains-collections-immutable = "0.3.5"
+
+# Other
+androidx-compose-compiler = "1.4.0"
+uuid = "0.6.0"
+kodein-di = "7.16.0"
+
+
+[libraries]
+
+# Jetbrains
+jetbrains-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "jetbrains-coroutines-core"}
+jetbrains-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "jetbrains-datetime"}
+jetbrains-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrains-serialization-json" }
+jetbrains-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "jetbrains-collections-immutable" }
+
+
+# Other
+androidx-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx-compose-compiler"}
+uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
+kodein-di-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di" }
+kodein-di-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein-di"}
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
