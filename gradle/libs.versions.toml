@@ -12,7 +12,7 @@ jetbrains-collections-immutable = "0.3.5"
 androidx-compose-compiler = "1.4.0"
 uuid = "0.6.0"
 kodein-di = "7.16.0"
-
+flowext = "0.5.0"
 
 [libraries]
 
@@ -28,6 +28,7 @@ androidx-compose-compiler = { module = "androidx.compose.compiler:compiler", ver
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
 kodein-di-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di" }
 kodein-di-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein-di"}
+flowext = { module = "io.github.hoc081098:FlowExt", version.ref = "flowext"}
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
