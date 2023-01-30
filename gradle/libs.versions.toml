@@ -22,7 +22,6 @@ jetbrains-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", versio
 jetbrains-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrains-serialization-json" }
 jetbrains-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "jetbrains-collections-immutable" }
 
-
 # Other
 androidx-compose-compiler = { module = "androidx.compose.compiler:compiler", version.ref = "androidx-compose-compiler"}
 uuid = { module = "com.benasher44:uuid", version.ref = "uuid" }
@@ -30,7 +29,7 @@ kodein-di-core = { module = "org.kodein.di:kodein-di", version.ref = "kodein-di"
 kodein-di-compose = { module = "org.kodein.di:kodein-di-framework-compose", version.ref = "kodein-di"}
 flowext = { module = "io.github.hoc081098:FlowExt", version.ref = "flowext"}
 
-[plugins]
-kotlin = { id = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
-serialization = { id = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "jetbrains-kotlin" }
-compose = { id = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrains-compose"}
+# gradle plugins
+gradle-plugin-jetbrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
+gradle-plugin-jetbrains-serialization = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "jetbrains-kotlin" }
+gradle-plugin-jetbrains-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrains-compose"}

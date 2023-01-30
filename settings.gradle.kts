@@ -1,11 +1,5 @@
 rootProject.name = "kotlinx"
 
-pluginManagement {
-    repositories {
-        gradlePluginPortal()
-    }
-}
-
 dependencyResolutionManagement {
     val spaceUsername: String by settings
     val spacePassword: String by settings
@@ -25,7 +19,8 @@ dependencyResolutionManagement {
     }
 }
 
+includeBuild("build-tools/convention-plugins")
+
 include(":libraries:ui")
 include(":libraries:ui-compose")
-
 include(":examples:simulation")
