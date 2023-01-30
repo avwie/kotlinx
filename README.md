@@ -1,31 +1,19 @@
 # avwie/kotlinx
 
+This repository contains libraries, starters and simple example code for my personal projects.
 
+## Version catalog
 
-## Getting Started
+All the versioning is done via the version catalog that is part of `/gradle/libs.versions.toml`
 
-Download links:
+## Libraries
 
-SSH clone URL: ssh://git@git.jetbrains.space/avwie/avwie/kotlinx.git
+Libraries are part of the `libraries` subfolder and are published to a private Jetbrains Space repository.
 
-HTTPS clone URL: https://git.jetbrains.space/avwie/avwie/kotlinx.git
+## Starters
 
+Starters are created in the `buildSrc` folder via compiled Gradle scripts in order to quickly setup example projects.
 
+## Examples
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-
-## Prerequisites
-
-What things you need to install the software and how to install them.
-
-```
-Examples
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a production system.
-
-## Resources
-
-Add links to external resources for this project, such as CI server, bug tracker, etc.
+These contain small samples I want to create but don't warrant a full new project.
