@@ -20,10 +20,10 @@ kotlin {
 
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
-
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
+                implementation(versionCatalog.findLibrary("kodein-di-compose").get())
                 implementation(project(":libraries:ui-compose"))
             }
         }
@@ -44,8 +44,4 @@ kotlin {
             }
         }
     }
-}
-
-compose {
-    kotlinCompilerPlugin.set(versionCatalog.findLibrary("androidx-compose-compiler").get().get().toString())
 }

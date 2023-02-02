@@ -22,7 +22,3 @@ kotlin {
         }
     }
 }
-
-compose {
-    kotlinCompilerPlugin.set(versionCatalog.findLibrary("androidx-compose-compiler").get().get().toString())
-}
