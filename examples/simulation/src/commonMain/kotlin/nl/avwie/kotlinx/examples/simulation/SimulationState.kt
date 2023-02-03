@@ -4,9 +4,15 @@ import kotlin.math.abs
 import kotlin.random.Random
 import kotlin.random.nextULong
 
+data class Color(val red: Int, val green: Int, val blue: Int) {
+    private fun Int.hex(): String = this.toString(16).padStart(2, '0')
+    fun hex(): String = "#${red.hex()}${green.hex()}${blue.hex()}"
+}
+
 data class Dynamics(val x: Double, val y: Double, val dx: Double, val dy: Double)
-data class Ball(val dynamics: Dynamics, val radius: Double, val color: Long)
+data class Ball(val dynamics: Dynamics, val radius: Double, val color: Color)
 data class Area(val width: Double, val height: Double)
+
 
 data class SimulationState(val area: Area, val balls: List<Ball>) {
 
@@ -41,7 +47,11 @@ data class SimulationState(val area: Area, val balls: List<Ball>) {
                         dy = Random.nextDouble(-1.0, 1.0) * height / 5000.0
                     ),
                     radius = Random.nextDouble(minOf(width, height) / 20),
-                    color = Random.nextLong()
+                    color = Color(
+                        red = Random.nextInt(256),
+                        green = Random.nextInt(256),
+                        blue = Random.nextInt(256)
+                    )
                 )
             }
         )

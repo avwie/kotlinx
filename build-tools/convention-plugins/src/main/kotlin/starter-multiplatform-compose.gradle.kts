@@ -42,6 +42,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(compose.web.core)
+                implementation(compose.web.svg)
                 implementation(compose.runtime)
             }
         }

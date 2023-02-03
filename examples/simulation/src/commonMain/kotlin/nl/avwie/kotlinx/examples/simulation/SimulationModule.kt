@@ -11,7 +11,7 @@ sealed interface Timer {
 }
 
 val SimulationModule = DI {
-    bindProvider(Timer.Simulation) {
+    bindProvider<Flow<Long>>(Timer.Simulation) {
         interval(initialDelayMillis = 0L, periodMillis = 10L)
             .map { 10L }
             .conflate()
