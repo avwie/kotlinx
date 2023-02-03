@@ -1,21 +1,13 @@
 plugins {
-    kotlin("multiplatform")
-    id("org.jetbrains.compose")
-    id("publish-to-space")
+    id("library-multiplatform-compose.conventions")
 }
 
 kotlin {
-    js(IR) {
-        browser()
-    }
-    jvm()
-
     sourceSets {
         val commonMain by getting {
             dependencies {
                 implementation(libs.jetbrains.coroutines.core)
-                implementation(libs.kodein.di.compose)
-                implementation(compose.runtime)
+                implementation(libs.kodein.di.core)
                 api(project(":libraries:ui"))
             }
         }

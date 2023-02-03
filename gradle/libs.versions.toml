@@ -1,5 +1,4 @@
 [versions]
-
 # Jetbrains
 jetbrains-kotlin = "1.8.0"
 jetbrains-compose = "1.3.0"
@@ -15,7 +14,6 @@ kodein-di = "7.18.0"
 flowext = "0.5.0"
 
 [libraries]
-
 # Jetbrains
 jetbrains-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "jetbrains-coroutines-core" }
 jetbrains-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "jetbrains-coroutines-core" }

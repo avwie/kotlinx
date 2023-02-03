@@ -1,12 +1,12 @@
 val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
 plugins {
+    id("repositories.conventions")
     kotlin("multiplatform")
     kotlin("plugin.serialization")
 }
 
 kotlin {
-
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
         val commonMain by getting {

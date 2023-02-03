@@ -1,14 +1,8 @@
 plugins {
-    kotlin("multiplatform")
-    id("publish-to-space")
+    id("library-multiplatform.conventions")
 }
 
 kotlin {
-    js(IR) {
-        browser()
-    }
-    jvm()
-
     sourceSets {
         val commonMain by getting {
             dependencies {
