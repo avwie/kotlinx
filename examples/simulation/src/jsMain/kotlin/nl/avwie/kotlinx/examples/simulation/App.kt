@@ -1,16 +1,8 @@
 package nl.avwie.kotlinx.examples.simulation
 
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import nl.avwie.kotlinx.ui.rememberFrameTimeFLow
-import nl.avwie.kotlinx.ui.viewModel
 import org.jetbrains.compose.web.ExperimentalComposeWebSvgApi
-import org.jetbrains.compose.web.dom.Canvas
 import org.jetbrains.compose.web.renderComposableInBody
 import org.jetbrains.compose.web.svg.*
-import org.kodein.di.compose.withDI
 
 @OptIn(ExperimentalComposeWebSvgApi::class)
 fun main() {
