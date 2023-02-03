@@ -7,11 +7,10 @@ import kotlinx.coroutines.flow.runningFold
 import kotlinx.coroutines.flow.stateIn
 
 class Simulation(
+    val initialState: SimulationState,
     val simulationTimer: Flow<Long>,
     val scope: CoroutineScope
 ) {
-    private val initialState = SimulationState.random(20000, 500.0, 500.0)
-
     val state = simulationTimer
         .runningFold(
             initial = initialState

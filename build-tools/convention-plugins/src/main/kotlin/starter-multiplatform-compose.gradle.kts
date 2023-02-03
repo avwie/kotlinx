@@ -34,6 +34,8 @@ kotlin {
                     exclude(group = "org.jetbrains.compose.material", module = "material")
                     exclude(group = "org.jetbrains.compose.material3", module = "material3")
                 }
+
+                implementation(versionCatalog.findLibrary("jetbrains.coroutines.swing").get())
             }
         }
 

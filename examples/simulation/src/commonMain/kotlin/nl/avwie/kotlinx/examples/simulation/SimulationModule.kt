@@ -1,17 +1,13 @@
 package nl.avwie.kotlinx.examples.simulation
 
-import androidx.compose.runtime.withFrameMillis
 import com.hoc081098.flowext.interval
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
-import org.kodein.di.DI
-import org.kodein.di.bindProvider
-import org.kodein.di.instance
+import org.kodein.di.*
 
 sealed interface Timer {
     object Simulation : Timer
-    object Render : Timer
 }
 
 val SimulationModule = DI {
@@ -25,16 +21,18 @@ val SimulationModule = DI {
             )
     }
 
-    bindProvider {
+    bindFactory { initialState: SimulationState ->
         Simulation(
+            initialState = initialState,
             simulationTimer = instance(Timer.Simulation),
             scope = CoroutineScope(Dispatchers.Default)
         )
     }
 
-    bindProvider {
+    bindFactory { params: SimulationViewModel.Params ->
         SimulationViewModel(
-            simulation = instance()
+            frameTimeFlow = params.renderTimer,
+            simulation = instance(arg = params.initialState)
         )
     }
 }

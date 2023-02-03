@@ -1,22 +1,20 @@
 package nl.avwie.kotlinx.examples.simulation
 
 import com.hoc081098.flowext.withLatestFrom
-import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import nl.avwie.kotlinx.ui.ViewModel
 
 class SimulationViewModel(
-    simulation: Simulation
+    frameTimeFlow: Flow<Long>,
+    simulation: Simulation,
 ) : ViewModel() {
 
-    private val renderTimer =
-        MutableSharedFlow<Unit>(
-            replay = 0,
-            extraBufferCapacity = 1,
-            onBufferOverflow = BufferOverflow.DROP_OLDEST
-        )
+    data class Params(
+        val initialState: SimulationState,
+        val renderTimer: Flow<Long>,
+    )
 
-    val state = renderTimer
+    val state = frameTimeFlow
         .withLatestFrom(simulation.state)
         .map { (_, state) ->
             state
@@ -24,10 +22,6 @@ class SimulationViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
-            initialValue = SimulationState.EMPTY
+            initialValue = simulation.initialState
         )
-
-    suspend fun tick() {
-        renderTimer.emit(Unit)
-    }
 }

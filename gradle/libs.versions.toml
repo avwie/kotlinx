@@ -18,6 +18,8 @@ flowext = "0.5.0"
 
 # Jetbrains
 jetbrains-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "jetbrains-coroutines-core" }
+jetbrains-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "jetbrains-coroutines-core" }
+
 jetbrains-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "jetbrains-datetime" }
 jetbrains-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "jetbrains-serialization-json" }
 jetbrains-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "jetbrains-collections-immutable" }

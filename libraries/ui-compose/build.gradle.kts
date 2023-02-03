@@ -13,14 +13,11 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(libs.jetbrains.coroutines.core)
                 implementation(libs.kodein.di.compose)
                 implementation(compose.runtime)
                 api(project(":libraries:ui"))
             }
         }
     }
-}
-
-compose {
-    kotlinCompilerPlugin.set(libs.androidx.compose.compiler.get().toString())
 }

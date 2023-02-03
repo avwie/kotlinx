@@ -7,17 +7,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.singleWindowApplication
-import kotlinx.coroutines.launch
 import nl.avwie.kotlinx.examples.simulation.SimulationModule
+import nl.avwie.kotlinx.examples.simulation.SimulationState
 import nl.avwie.kotlinx.examples.simulation.SimulationViewModel
-import org.kodein.di.compose.rememberInstance
+import nl.avwie.kotlinx.ui.rememberFrameTimeFLow
+import nl.avwie.kotlinx.ui.viewModel
 import org.kodein.di.compose.withDI
 
 fun main() = singleWindowApplication(
-    state = WindowState(width = 500.dp, height = 500.dp)
+    state = WindowState(width = 1280.dp, height = 800.dp)
 ) {
     withDI(SimulationModule) {
-        val simulationViewModel: SimulationViewModel by rememberInstance()
+        val frameTimeFlow = rememberFrameTimeFLow()
+
+        val simulationParams = remember {
+            SimulationViewModel.Params(
+                initialState = SimulationState.random(100, 1280.0, 800.0),
+                renderTimer = frameTimeFlow
+            )
+        }
+
+        val simulationViewModel: SimulationViewModel = viewModel(simulationParams)
+
         val state by simulationViewModel.state.collectAsState()
 
         Canvas(
@@ -30,16 +41,6 @@ fun main() = singleWindowApplication(
                     radius = 10.0f,
                     color = Color(ball.color)
                 )
-            }
-        }
-
-        LaunchedEffect(Unit) {
-            while (true) {
-                withFrameMillis {
-                    launch {
-                        simulationViewModel.tick()
-                    }
-                }
             }
         }
     }
