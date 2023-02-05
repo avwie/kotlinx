@@ -1,5 +1,5 @@
 plugins {
-    id("library-multiplatform-compose.conventions")
+    id("convention.library-multiplatform-compose")
 }
 
 kotlin {
@@ -8,6 +8,7 @@ kotlin {
             dependencies {
                 implementation(libs.jetbrains.coroutines.core)
                 implementation(libs.kodein.di.core)
+                implementation(libs.kodein.di.compose)
                 api(project(":libraries:ui"))
             }
         }
