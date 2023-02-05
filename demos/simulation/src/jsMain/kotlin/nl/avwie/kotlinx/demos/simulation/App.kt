@@ -19,7 +19,7 @@ fun main() {
                     height(800.0)
                 }
             ) {
-                balls.forEach { ball ->
+                simulation.balls.forEach { ball ->
                     Circle(
                         cx = ball.dynamics.x,
                         cy = ball.dynamics.y,

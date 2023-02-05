@@ -1,5 +1,3 @@
-val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
 plugins {
     id("convention.library-multiplatform")
     id("org.jetbrains.compose")

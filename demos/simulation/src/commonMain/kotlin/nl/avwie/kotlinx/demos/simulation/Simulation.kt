@@ -1,21 +1,26 @@
 package nl.avwie.kotlinx.demos.simulation
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.runningFold
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
+import kotlinx.datetime.Clock
 
 class Simulation(
     val initialState: SimulationState,
     val simulationTimer: Flow<Long>,
     val scope: CoroutineScope
 ) {
+    private val _benchmark = MutableStateFlow(0L)
+    val benchmark = _benchmark.asStateFlow()
+
     val state = simulationTimer
         .runningFold(
             initial = initialState
         ) { state, frameTime ->
-            state.update(frameTime.toDouble())
+            val now = Clock.System.now()
+            state.update(frameTime.toDouble()).also {
+                val elapsed = Clock.System.now() - now
+                _benchmark.update { elapsed.inWholeNanoseconds }
+            }
         }
         .stateIn(
             scope = scope,
