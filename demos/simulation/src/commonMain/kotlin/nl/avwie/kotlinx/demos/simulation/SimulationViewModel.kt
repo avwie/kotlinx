@@ -14,14 +14,22 @@ class SimulationViewModel(
         val renderTimer: Flow<Long>,
     )
 
+    data class State(
+        val simulation: SimulationState,
+        val benchmark: Long
+    )
+
     val state = frameTimeFlow
         .withLatestFrom(simulation.state)
         .map { (_, state) ->
-            state
+            State(
+                simulation = state,
+                benchmark = simulation.benchmark.value
+            )
         }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,
-            initialValue = simulation.initialState
+            initialValue = State(simulation.initialState, 0L)
         )
 }

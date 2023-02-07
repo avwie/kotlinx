@@ -31,5 +31,5 @@ flowext = { module = "io.github.hoc081098:FlowExt", version.ref = "flowext" }
 
 # gradle plugins
 gradle-plugin-jetbrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
-gradle-plugin-jetbrains-serialization = { module = "org.jetbrains.kotlin.plugin.serialization:org.jetbrains.kotlin.plugin.serialization.gradle.plugin", version.ref = "jetbrains-kotlin" }
+gradle-plugin-jetbrains-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "jetbrains-kotlin" }
 gradle-plugin-jetbrains-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrains-compose" }

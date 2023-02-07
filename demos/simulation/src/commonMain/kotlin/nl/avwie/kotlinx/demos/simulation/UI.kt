@@ -13,7 +13,7 @@ fun Simulation(
     noOfBalls: Int,
     width: Double,
     height: Double,
-    simulationScope: @Composable SimulationState.() -> Unit = {}
+    simulationScope: @Composable SimulationViewModel.State.() -> Unit = {}
 ) {
     withDI(SimulationModule) {
         val frameTimeFlow = rememberFrameTimeFLow()

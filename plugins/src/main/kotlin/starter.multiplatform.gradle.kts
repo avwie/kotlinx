@@ -7,6 +7,15 @@ plugins {
 }
 
 kotlin {
+    js(IR) {
+        browser()
+        binaries.executable()
+    }
+
+    jvm {
+        withJava()
+    }
+
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
         val commonMain by getting {
@@ -19,8 +28,6 @@ kotlin {
                 implementation(versionCatalog.findLibrary("uuid").get())
                 implementation(versionCatalog.findLibrary("kodein-di-core").get())
                 implementation(versionCatalog.findLibrary("flowext").get())
-
-                implementation(project(":libraries:ui"))
             }
         }
     }
