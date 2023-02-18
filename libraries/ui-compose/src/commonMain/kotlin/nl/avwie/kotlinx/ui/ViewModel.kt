@@ -7,7 +7,7 @@ import org.kodein.di.compose.rememberFactory
 import org.kodein.di.compose.rememberInstance
 
 @Composable
-inline fun <reified T : ViewModel> viewModel(): T {
+inline fun <reified T : IViewModel> viewModel(): T {
     val viewModel: T by rememberInstance()
 
     DisposableEffect(Unit) {

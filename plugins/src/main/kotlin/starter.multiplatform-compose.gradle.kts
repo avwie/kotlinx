@@ -13,10 +13,15 @@ kotlin {
 
     @Suppress("UNUSED_VARIABLE")
     sourceSets {
+
         val commonMain by getting {
             dependencies {
                 implementation(compose.runtime)
+                implementation(compose.ui)
+                implementation(compose.foundation)
                 implementation(versionCatalog.findLibrary("kodein-di-compose").get())
+                implementation(project(":libraries:ui-compose"))
+                implementation(project(":libraries:ui"))
             }
         }
 
@@ -29,13 +34,13 @@ kotlin {
                 implementation(versionCatalog.findLibrary("jetbrains.coroutines.swing").get())
             }
         }
-
-        val jsMain by getting {
-            dependencies {
-                implementation(compose.web.core)
-                implementation(compose.web.svg)
-                implementation(compose.runtime)
-            }
-        }
     }
+}
+
+compose.desktop {
+    application {}
+}
+
+compose.experimental {
+    web.application {}
 }
