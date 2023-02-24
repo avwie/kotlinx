@@ -3,9 +3,11 @@ package nl.avwie.kotlinx.demos.simulation
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ImageComposeScene
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
@@ -13,7 +15,9 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asComposeImageBitmap
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.delay
@@ -48,56 +52,69 @@ fun Simulation(
         LaunchedEffect(Unit) {
             while (true) {
                 screenshotState.takeScreenshot()
-                delay(1000)
+                delay(1000 / 15)
             }
         }
 
-        Box(
-            modifier = Modifier
-                .takeScreenshot(screenshotState)
+        ScreenshotContainer(
+            screenshotState = screenshotState,
+            targetDensity = Density(0.1f)
         ) {
-            Canvas(
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
             ) {
-                state.simulation.balls.forEach { ball ->
-                    drawCircle(
-                        center = Offset(ball.dynamics.x.dp.toPx(), ball.dynamics.y.dp.toPx()),
-                        radius = 10.0f.dp.toPx(),
-                        color = Color(
-                            ball.color.red,
-                            ball.color.green,
-                            ball.color.blue
+                Canvas(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    state.simulation.balls.forEach { ball ->
+                        drawCircle(
+                            center = Offset(ball.dynamics.x.dp.toPx(), ball.dynamics.y.dp.toPx()),
+                            radius = 10.0f.dp.toPx(),
+                            color = Color(
+                                ball.color.red,
+                                ball.color.green,
+                                ball.color.blue
+                            )
+                        )
+                    }
+                }
+
+                Box(
+                    modifier = Modifier
+                        .padding(32.dp)
+                        .background(Color.Black.copy(alpha = 0.7f))
+                        .padding(16.dp)
+                ) {
+                    BasicText(
+                        text = "${state.benchmark / 1000000.0} ms",
+                        style = TextStyle(
+                            color = Color.White
                         )
                     )
                 }
-            }
-
-            Box(
-                modifier = Modifier
-                    .padding(32.dp)
-                    .background(Color.Black.copy(alpha = 0.7f))
-                    .padding(16.dp)
-            ) {
-                BasicText(
-                    text = "${state.benchmark / 1000000.0} ms",
-                    style = TextStyle(
-                        color = Color.White
-                    )
-                )
             }
         }
 
         if (latestImage != null) {
             Box(
                 modifier = Modifier
-                    .offset(x = 30.dp, y = 30.dp)
-                    .size(width = 400.dp, height = 400.dp)
+                    .fillMaxSize()
             ) {
-                Image(
-                    bitmap = latestImage!!.asComposeImageBitmap(),
-                    contentDescription = "Screenshot"
-                )
+                with(LocalDensity.current) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize(fraction = 0.33f)
+                            .align(alignment = Alignment.BottomEnd)
+                            .border(width = 2.dp, color = Color.Red)
+                    ) {
+                        Image(
+                            bitmap = latestImage!!,
+                            contentDescription = "Screenshot",
+                            modifier = Modifier.fillMaxSize()
+                        )
+                    }
+                }
             }
         }
     }
