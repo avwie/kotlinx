@@ -19,7 +19,7 @@ private const val CANVAS_ELEMENT_ID = "ComposeTarget" // Hardwired into ComposeW
 /**
  * A Skiko/Canvas-based top-level window using the browser's entire viewport. Supports resizing.
  */
-fun BrowserViewportWindow(
+fun ComposeBrowserWindow(
     title: String = "Untitled",
     content: @Composable ComposeWindow.() -> Unit
 ) {
@@ -50,21 +50,18 @@ fun BrowserViewportWindow(
         setAttribute("height", "${window.innerHeight}")
     }
 
-    var canvas = (document.getElementById(CANVAS_ELEMENT_ID) as HTMLCanvasElement).apply {
+    val canvas = (document.getElementById(CANVAS_ELEMENT_ID) as HTMLCanvasElement).apply {
         fillViewportSize()
     }
 
     ComposeWindow().apply {
         window.addEventListener("resize", {
-            val newCanvas = canvas.cloneNode(false) as HTMLCanvasElement
-            canvas.replaceWith(newCanvas)
-            canvas = newCanvas
-
+            val density = window.devicePixelRatio.toFloat()
             val scale = layer.layer.contentScale
-            newCanvas.fillViewportSize()
-            layer.layer.attachTo(newCanvas)
+            canvas.fillViewportSize()
+            layer.layer.attachTo(canvas)
             layer.layer.needRedraw()
-            layer.setSize((newCanvas.width / scale).toInt(), (newCanvas.height / scale).toInt())
+            layer.setSize((canvas.width / scale * density).toInt(), (canvas.height / scale * density).toInt())
         })
 
         // WORKAROUND: ComposeWindow does not implement `setTitle(title)`

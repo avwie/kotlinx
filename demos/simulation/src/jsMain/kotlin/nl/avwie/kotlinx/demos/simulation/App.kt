@@ -5,7 +5,7 @@ import org.jetbrains.skiko.wasm.onWasmReady
 
 fun main() {
     onWasmReady {
-        BrowserViewportWindow("Balls") {
+        ComposeBrowserWindow("Balls") {
             Simulation(
                 noOfBalls = 1000,
                 width = 1280.0,
