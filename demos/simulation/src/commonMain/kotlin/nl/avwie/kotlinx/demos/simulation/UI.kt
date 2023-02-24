@@ -1,23 +1,27 @@
 package nl.avwie.kotlinx.demos.simulation
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicText
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.ui.ImageComposeScene
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asComposeImageBitmap
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.channels.BufferOverflow
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
 import nl.avwie.kotlinx.ui.rememberFrameTimeFLow
 import nl.avwie.kotlinx.ui.viewModel
 import org.kodein.di.compose.withDI
+
 
 @Composable
 fun Simulation(
@@ -38,7 +42,20 @@ fun Simulation(
         val simulationViewModel: SimulationViewModel = viewModel(simulationParams)
         val state by simulationViewModel.state.collectAsState()
 
-        Box {
+        val screenshotState = remember { ScreenshotState() }
+        val latestImage by screenshotState.latestScreenShot.collectAsState()
+
+        LaunchedEffect(Unit) {
+            while (true) {
+                screenshotState.takeScreenshot()
+                delay(1000)
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .takeScreenshot(screenshotState)
+        ) {
             Canvas(
                 modifier = Modifier
                     .fillMaxSize()
@@ -67,6 +84,19 @@ fun Simulation(
                     style = TextStyle(
                         color = Color.White
                     )
+                )
+            }
+        }
+
+        if (latestImage != null) {
+            Box(
+                modifier = Modifier
+                    .offset(x = 30.dp, y = 30.dp)
+                    .size(width = 400.dp, height = 400.dp)
+            ) {
+                Image(
+                    bitmap = latestImage!!.asComposeImageBitmap(),
+                    contentDescription = "Screenshot"
                 )
             }
         }
