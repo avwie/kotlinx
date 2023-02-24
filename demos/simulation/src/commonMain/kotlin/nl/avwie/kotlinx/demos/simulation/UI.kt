@@ -52,7 +52,7 @@ fun Simulation(
         LaunchedEffect(Unit) {
             while (true) {
                 screenshotState.takeScreenshot()
-                delay(1000 / 15)
+                delay(1000)
             }
         }
 

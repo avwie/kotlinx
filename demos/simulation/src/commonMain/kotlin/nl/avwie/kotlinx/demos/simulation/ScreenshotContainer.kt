@@ -44,8 +44,10 @@ class ScreenshotState {
             content = content
         )
 
+        val bitmap = scene.render().toComposeImageBitmap()
+
         _latestScreenShot.update {
-            scene.render().toComposeImageBitmap()
+            bitmap
         }
     }
 }
