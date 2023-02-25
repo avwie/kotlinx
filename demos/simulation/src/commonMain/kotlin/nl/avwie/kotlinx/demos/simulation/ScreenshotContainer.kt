@@ -9,7 +9,6 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import androidx.compose.ui.layout.LayoutCoordinates
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.renderComposeScene
 import androidx.compose.ui.unit.Density
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*

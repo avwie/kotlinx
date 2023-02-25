@@ -1,10 +1,10 @@
 @file:Suppress(
     "INVISIBLE_MEMBER",
     "INVISIBLE_REFERENCE",
-    "EXPOSED_PARAMETER_TYPE"
-)
+    "EXPOSED_PARAMETER_TYPE",
+) // WORKAROUND: ComposeLayer is internal
 
-package nl.avwie.kotlinx.demos.simulation
+package nl.avwie.kotlinx.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.ComposeWindow
@@ -14,13 +14,10 @@ import org.w3c.dom.HTMLCanvasElement
 import org.w3c.dom.HTMLStyleElement
 import org.w3c.dom.HTMLTitleElement
 
-private const val CANVAS_ELEMENT_ID = "ComposeTarget" // Hardwired into ComposeWindow
+private const val CANVAS_ELEMENT_ID = "ComposeTarget"
 
-/**
- * A Skiko/Canvas-based top-level window using the browser's entire viewport. Supports resizing.
- */
-fun ComposeBrowserWindow(
-    title: String = "Untitled",
+fun SkiaCanvas(
+    title: String,
     content: @Composable ComposeWindow.() -> Unit
 ) {
     val htmlHeadElement = document.head!!
