@@ -1,4 +1,3 @@
-import gradle.kotlin.dsl.accessors._2ac8a54cb38e450fac76afa89d97da17.compose
 import org.gradle.kotlin.dsl.getValue
 import org.gradle.kotlin.dsl.getting
 
