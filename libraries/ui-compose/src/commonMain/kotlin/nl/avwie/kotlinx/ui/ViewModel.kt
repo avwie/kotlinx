@@ -3,6 +3,7 @@ package nl.avwie.kotlinx.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import org.kodein.di.compose.rememberFactory
 import org.kodein.di.compose.rememberInstance
 

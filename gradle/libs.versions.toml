@@ -11,6 +11,7 @@ jetbrains-collections-immutable = "0.3.5"
 uuid = "0.6.0"
 kodein-di = "7.18.0"
 flowext = "0.5.0"
+molecule = "0.9.0"
 
 [libraries]
 # Jetbrains
@@ -31,3 +32,4 @@ flowext = { module = "io.github.hoc081098:FlowExt", version.ref = "flowext" }
 gradle-plugin-jetbrains-kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "jetbrains-kotlin" }
 gradle-plugin-jetbrains-serialization = { module = "org.jetbrains.kotlin:kotlin-serialization", version.ref = "jetbrains-kotlin" }
 gradle-plugin-jetbrains-compose = { module = "org.jetbrains.compose:compose-gradle-plugin", version.ref = "jetbrains-compose" }
+gradle-plugin-molecule = { module = "app.cash.molecule:molecule-gradle-plugin", version.ref = "molecule" }

@@ -9,7 +9,7 @@ interface IViewModel {
 }
 
 abstract class ViewModel(
-    protected val viewModelScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    protected val viewModelScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 ): IViewModel {
     override fun dispose() {
         viewModelScope.cancel()
