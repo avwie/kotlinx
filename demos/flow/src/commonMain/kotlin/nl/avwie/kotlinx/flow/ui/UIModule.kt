@@ -9,8 +9,9 @@ object UIModule {
     operator fun invoke() = DI.Module(name = "UI") {
         bindSingleton {
             FlowViewModel(
-                observeElements = instance(),
-                moveIcon = instance()
+                observeIcons = instance(),
+                selectIcon = instance(),
+                moveIcon = instance(),
             )
         }
     }

@@ -1,16 +1,19 @@
 package nl.avwie.kotlinx.flow.ui.flow
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.onClick
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import nl.avwie.kotlinx.flow.interactors.InteractorsModule
-import nl.avwie.kotlinx.flow.interactors.MoveIcon
 import nl.avwie.kotlinx.flow.observers.ObserversModule
 import nl.avwie.kotlinx.flow.state.FlowState
+import nl.avwie.kotlinx.flow.state.IconState
 import nl.avwie.kotlinx.flow.store.StoreModule
 import nl.avwie.kotlinx.flow.ui.UIModule
 import nl.avwie.kotlinx.flow.ui.icons.Icon
@@ -41,23 +44,30 @@ fun Flow(
     val state by viewModel.state.collectAsState()
     Flow(
         state = state,
-        moveIcon = viewModel.moveIcon
+        onDragIcon = { icon, offset -> viewModel.dragIcon(icon, offset) },
+        onBackgroundClick = { viewModel.selectIcon(null) }
     )
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Flow(
     state: FlowState,
-    moveIcon: MoveIcon
+    onDragIcon: (IconState, Offset) -> Unit = { _, _ -> },
+    onBackgroundClick: () -> Unit = {}
 ) {
-    Canvas(modifier = Modifier.fillMaxSize()) {
+    Canvas(
+        modifier = Modifier
+            .fillMaxSize()
+            .onClick { onBackgroundClick() }
+    ) {
         drawRect(Color.White)
     }
 
-    state.icons.forEach { element ->
+    state.iconStates.forEach { element ->
         Icon(
-            icon = element,
-            moveIcon = moveIcon
+            iconState = element,
+            onDragIcon = { offset -> onDragIcon(element, offset) }
         )
     }
 }
