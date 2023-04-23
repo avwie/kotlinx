@@ -8,7 +8,7 @@ object ObserversModule {
     operator fun invoke() = DI.Module(name = "Observers") {
         bindProvider {
             ObserveElements(
-                elementsStore = instance()
+                iconsStore = instance()
             )
         }
     }

@@ -3,10 +3,10 @@ package nl.avwie.kotlinx.flow.state
 import com.benasher44.uuid.Uuid
 
 data class FlowState(
-    val elements: List<Element>
+    val icons: List<Icon>
 )
 
-data class Element (
+data class Icon (
     val id: Uuid,
     val name: String,
     val position: Pair<Int, Int>

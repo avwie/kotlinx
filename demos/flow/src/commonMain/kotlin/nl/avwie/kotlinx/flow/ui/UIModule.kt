@@ -1,5 +1,6 @@
 package nl.avwie.kotlinx.flow.ui
 
+import nl.avwie.kotlinx.flow.ui.flow.FlowViewModel
 import org.kodein.di.DI
 import org.kodein.di.bindSingleton
 import org.kodein.di.instance
@@ -9,7 +10,7 @@ object UIModule {
         bindSingleton {
             FlowViewModel(
                 observeElements = instance(),
-                moveElement = instance()
+                moveIcon = instance()
             )
         }
     }

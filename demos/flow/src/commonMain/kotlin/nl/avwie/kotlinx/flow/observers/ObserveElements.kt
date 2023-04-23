@@ -1,9 +1,9 @@
 package nl.avwie.kotlinx.flow.observers
 
 import kotlinx.coroutines.flow.Flow
-import nl.avwie.kotlinx.flow.state.Element
-import nl.avwie.kotlinx.flow.store.ElementsStore
+import nl.avwie.kotlinx.flow.state.Icon
+import nl.avwie.kotlinx.flow.store.IconsStore
 
-class ObserveElements(elementsStore: ElementsStore) {
-    val flow : Flow<List<Element>> = elementsStore.elements
+class ObserveElements(iconsStore: IconsStore) {
+    val flow : Flow<List<Icon>> = iconsStore.elements
 }

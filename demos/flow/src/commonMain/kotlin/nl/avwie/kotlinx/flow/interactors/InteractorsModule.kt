@@ -6,9 +6,9 @@ import org.kodein.di.instance
 
 object InteractorsModule {
     operator fun invoke() = DI.Module(name = "Interactors") {
-        bindProvider<MoveElement> {
-            MoveElementImpl(
-                elementsStore = instance()
+        bindProvider<MoveIcon> {
+            MoveIconImpl(
+                iconsStore = instance()
             )
         }
     }
