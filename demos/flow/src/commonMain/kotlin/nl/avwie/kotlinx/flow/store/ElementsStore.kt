@@ -17,4 +17,10 @@ class ElementsStore {
             list.remove(element)
         } ?: list
     }
+
+    fun updateElement(element: Element, update: (Element) -> Element) = _elements.update { list ->
+        list.indexOfFirst { it.id == element.id }.takeIf { it >= 0 }?.let { index ->
+            list.set(index, update(element))
+        } ?: list
+    }
 }

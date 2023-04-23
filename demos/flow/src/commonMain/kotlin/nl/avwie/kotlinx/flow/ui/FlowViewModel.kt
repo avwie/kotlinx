@@ -8,13 +8,16 @@ import app.cash.molecule.moleculeFlow
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import nl.avwie.kotlinx.flow.interactors.MoveElement
 import nl.avwie.kotlinx.flow.observers.ObserveElements
 import nl.avwie.kotlinx.flow.state.FlowState
 import nl.avwie.kotlinx.ui.ViewModel
 
 class FlowViewModel(
     observeElements: ObserveElements,
+    val moveElement: MoveElement
 ) : ViewModel() {
+
     val state = viewModelScope.launchMolecule (RecompositionClock.Immediate) {
         val elements by observeElements.flow.collectAsState(listOf())
         FlowState(elements)
