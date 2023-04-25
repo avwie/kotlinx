@@ -2,17 +2,17 @@ package nl.avwie.kotlinx.flow.ui.flow
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.gestures.onDrag
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.onClick
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.DpOffset
 import nl.avwie.kotlinx.flow.interactors.InteractorsModule
 import nl.avwie.kotlinx.flow.observers.ObserversModule
-import nl.avwie.kotlinx.flow.state.FlowState
 import nl.avwie.kotlinx.flow.state.IconState
 import nl.avwie.kotlinx.flow.store.StoreModule
 import nl.avwie.kotlinx.flow.ui.UIModule
@@ -41,33 +41,42 @@ import org.kodein.di.compose.withDI
 fun Flow(
     viewModel: FlowViewModel
 ) {
-    val state by viewModel.state.collectAsState()
+    val icons by viewModel.icons.state.collectAsState()
+
     Flow(
-        state = state,
-        onDragIcon = { icon, offset -> viewModel.dragIcon(icon, offset) },
-        onBackgroundClick = { viewModel.selectIcon(null) }
+        icons = icons,
+        onIconClick = { icon -> viewModel.icons.select(icon) },
+        onIconDrag = { icon, offset -> viewModel.icons.drag(icon, offset) },
+        onBackgroundClick = { viewModel.icons.deselect() }
     )
 }
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Flow(
-    state: FlowState,
-    onDragIcon: (IconState, Offset) -> Unit = { _, _ -> },
+    icons: List<IconState>,
+    onIconClick: (IconState) -> Unit = { },
+    onIconDrag: (IconState, DpOffset) -> Unit = { _, _ -> },
     onBackgroundClick: () -> Unit = {}
 ) {
     Canvas(
         modifier = Modifier
             .fillMaxSize()
             .onClick { onBackgroundClick() }
+            .onDrag(
+                onDragStart = { _ -> },
+                onDrag = { _ -> },
+                onDragEnd = {}
+            )
     ) {
         drawRect(Color.White)
     }
 
-    state.iconStates.forEach { element ->
+    icons.forEach { element ->
         Icon(
             iconState = element,
-            onDragIcon = { offset -> onDragIcon(element, offset) }
+            onClick = { onIconClick(element) },
+            onDrag = { offset -> onIconDrag(element, offset) }
         )
     }
 }
