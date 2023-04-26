@@ -20,13 +20,13 @@ class SelectIconImpl(
 ) : SelectIcon {
 
     override fun selectOne(iconState: IconState) {
-        deselectAll()
-        iconsStore.updateIcon(iconState) { it.copy(selected = true) }
+        selectMany(listOf(iconState))
     }
 
     override fun selectMany(iconStates: List<IconState>) {
+        deselectAll()
         iconStates.forEach { iconState ->
-            selectOne(iconState)
+            iconsStore.updateIcon(iconState) { it.copy(selected = true) }
         }
     }
 

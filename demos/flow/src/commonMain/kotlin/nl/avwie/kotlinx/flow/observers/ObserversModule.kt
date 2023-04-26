@@ -1,7 +1,5 @@
 package nl.avwie.kotlinx.flow.observers
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.instance
@@ -12,6 +10,12 @@ object ObserversModule {
         bindProvider<ObserveIcons> {
             ObserveIconsImpl(
                 iconsStore = instance()
+            )
+        }
+
+        bindProvider<ObserveSelectionBox> {
+            ObserveSelectionBoxImpl(
+                store = instance()
             )
         }
     }

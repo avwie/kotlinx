@@ -2,7 +2,6 @@ package nl.avwie.kotlinx.flow.ui.flow
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.gestures.onDrag
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.onClick
 import androidx.compose.runtime.Composable
@@ -10,14 +9,18 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.DpRect
 import nl.avwie.kotlinx.flow.interactors.InteractorsModule
 import nl.avwie.kotlinx.flow.observers.ObserversModule
 import nl.avwie.kotlinx.flow.state.IconState
 import nl.avwie.kotlinx.flow.store.StoreModule
 import nl.avwie.kotlinx.flow.ui.UIModule
+import nl.avwie.kotlinx.flow.ui.common.DragEventHandler
 import nl.avwie.kotlinx.flow.ui.icons.Icon
+import nl.avwie.kotlinx.flow.ui.icons.IconEventHandler
+import nl.avwie.kotlinx.flow.ui.selector.Selector
 import nl.avwie.kotlinx.ui.viewModel
+import nl.avwie.kotlinx.utils.compose.onDrag
 import org.kodein.di.DI
 import org.kodein.di.compose.withDI
 
@@ -42,11 +45,13 @@ fun Flow(
     viewModel: FlowViewModel
 ) {
     val icons by viewModel.icons.state.collectAsState()
+    val selectionBox by viewModel.selector.state.collectAsState()
 
     Flow(
         icons = icons,
-        onIconClick = { icon -> viewModel.icons.select(icon) },
-        onIconDrag = { icon, offset -> viewModel.icons.drag(icon, offset) },
+        selectionBox = selectionBox,
+        iconEventHandler = viewModel.icons,
+        backgroundDragEventHandler = viewModel.selector,
         onBackgroundClick = { viewModel.icons.deselect() }
     )
 }
@@ -54,20 +59,17 @@ fun Flow(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Flow(
-    icons: List<IconState>,
-    onIconClick: (IconState) -> Unit = { },
-    onIconDrag: (IconState, DpOffset) -> Unit = { _, _ -> },
+    icons: List<IconState> = listOf(),
+    selectionBox: DpRect? = null,
+    iconEventHandler: IconEventHandler? = null,
+    backgroundDragEventHandler: DragEventHandler? = null,
     onBackgroundClick: () -> Unit = {}
 ) {
     Canvas(
         modifier = Modifier
             .fillMaxSize()
             .onClick { onBackgroundClick() }
-            .onDrag(
-                onDragStart = { _ -> },
-                onDrag = { _ -> },
-                onDragEnd = {}
-            )
+            .then(backgroundDragEventHandler?.let { Modifier.onDrag(it) } ?: Modifier)
     ) {
         drawRect(Color.White)
     }
@@ -75,8 +77,10 @@ fun Flow(
     icons.forEach { element ->
         Icon(
             iconState = element,
-            onClick = { onIconClick(element) },
-            onDrag = { offset -> onIconDrag(element, offset) }
+            onClick = { iconEventHandler?.onIconClick(element) },
+            onDrag = { offset -> iconEventHandler?.onIconDrag(element, offset) }
         )
     }
+
+    Selector(rect = selectionBox)
 }

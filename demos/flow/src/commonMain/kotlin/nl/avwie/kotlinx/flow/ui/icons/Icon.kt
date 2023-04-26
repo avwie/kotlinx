@@ -27,7 +27,10 @@ import nl.avwie.kotlinx.utils.compose.toIntOffset
 
     Canvas(
         modifier = Modifier
-            .size(100.dp)
+            .size(
+                width = iconState.size.width,
+                height = iconState.size.height
+            )
             .offset { toIntOffset(iconState.position) }
             .onClick { onClick() }
             .onDrag { offset -> onDrag(density.toDpOffset(offset)) }

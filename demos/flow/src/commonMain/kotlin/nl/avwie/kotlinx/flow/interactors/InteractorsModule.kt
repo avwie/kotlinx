@@ -19,5 +19,11 @@ object InteractorsModule {
                 iconsStore = instance()
             )
         }
+
+        bindProvider<SelectionBox> {
+            SelectionBoxImpl(
+                selectorStore = instance()
+            )
+        }
     }
 }
