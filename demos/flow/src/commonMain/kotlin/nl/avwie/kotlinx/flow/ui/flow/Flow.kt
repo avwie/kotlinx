@@ -15,9 +15,11 @@ import nl.avwie.kotlinx.flow.observers.ObserversModule
 import nl.avwie.kotlinx.flow.state.IconState
 import nl.avwie.kotlinx.flow.store.StoreModule
 import nl.avwie.kotlinx.flow.ui.UIModule
+import nl.avwie.kotlinx.flow.ui.background.Background
 import nl.avwie.kotlinx.flow.ui.common.DragEventHandler
 import nl.avwie.kotlinx.flow.ui.icons.Icon
 import nl.avwie.kotlinx.flow.ui.icons.IconEventHandler
+import nl.avwie.kotlinx.flow.ui.icons.Icons
 import nl.avwie.kotlinx.flow.ui.selector.Selector
 import nl.avwie.kotlinx.ui.viewModel
 import nl.avwie.kotlinx.utils.compose.onDrag
@@ -56,7 +58,6 @@ fun Flow(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun Flow(
     icons: List<IconState> = listOf(),
@@ -65,22 +66,15 @@ fun Flow(
     backgroundDragEventHandler: DragEventHandler? = null,
     onBackgroundClick: () -> Unit = {}
 ) {
-    Canvas(
-        modifier = Modifier
-            .fillMaxSize()
-            .onClick { onBackgroundClick() }
-            .then(backgroundDragEventHandler?.let { Modifier.onDrag(it) } ?: Modifier)
-    ) {
-        drawRect(Color.White)
-    }
+    Background(
+        backgroundDragEventHandler = backgroundDragEventHandler,
+        onBackgroundClick = onBackgroundClick
+    )
 
-    icons.forEach { element ->
-        Icon(
-            iconState = element,
-            onClick = { iconEventHandler?.onIconClick(element) },
-            onDrag = { offset -> iconEventHandler?.onIconDrag(element, offset) }
-        )
-    }
+    Icons(
+        icons = icons,
+        iconEventHandler = iconEventHandler
+    )
 
     Selector(rect = selectionBox)
 }
