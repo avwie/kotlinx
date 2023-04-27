@@ -22,5 +22,9 @@ object StoreModule {
                 scope = CoroutineScope(Dispatchers.Default)
             )
         }
+
+        bindSingleton<GridStore> {
+            GridStoreImpl()
+        }
     }
 }

@@ -19,7 +19,7 @@ sealed interface IconType {
         override val size = DpSize(80.dp, 30.dp)
     }
     object Action : IconType {
-        override val size = DpSize(150.dp, 100.dp)
+        override val size = DpSize(130.dp, 80.dp)
     }
 
     object End : IconType {

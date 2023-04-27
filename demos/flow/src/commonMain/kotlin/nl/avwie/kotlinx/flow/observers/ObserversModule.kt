@@ -18,5 +18,11 @@ object ObserversModule {
                 store = instance()
             )
         }
+
+        bindProvider<ObserveGridDefinition> {
+            ObserveGridDefinitionImpl(
+                gridStore = instance()
+            )
+        }
     }
 }

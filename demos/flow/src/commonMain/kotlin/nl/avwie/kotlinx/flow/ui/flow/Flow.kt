@@ -13,10 +13,12 @@ import androidx.compose.ui.unit.DpRect
 import nl.avwie.kotlinx.flow.interactors.InteractorsModule
 import nl.avwie.kotlinx.flow.observers.ObserversModule
 import nl.avwie.kotlinx.flow.state.IconState
+import nl.avwie.kotlinx.flow.store.GridStore
 import nl.avwie.kotlinx.flow.store.StoreModule
 import nl.avwie.kotlinx.flow.ui.UIModule
 import nl.avwie.kotlinx.flow.ui.background.Background
 import nl.avwie.kotlinx.flow.ui.common.DragEventHandler
+import nl.avwie.kotlinx.flow.ui.grid.Grid
 import nl.avwie.kotlinx.flow.ui.icons.Icon
 import nl.avwie.kotlinx.flow.ui.icons.IconEventHandler
 import nl.avwie.kotlinx.flow.ui.icons.Icons
@@ -48,9 +50,11 @@ fun Flow(
 ) {
     val icons by viewModel.icons.state.collectAsState()
     val selectionBox by viewModel.selector.state.collectAsState()
+    val grid by viewModel.grid.state.collectAsState()
 
     Flow(
         icons = icons,
+        grid = grid,
         selectionBox = selectionBox,
         iconEventHandler = viewModel.icons,
         backgroundDragEventHandler = viewModel.selector,
@@ -62,6 +66,7 @@ fun Flow(
 fun Flow(
     icons: List<IconState> = listOf(),
     selectionBox: DpRect? = null,
+    grid: GridStore.GridDefinition? = null,
     iconEventHandler: IconEventHandler? = null,
     backgroundDragEventHandler: DragEventHandler? = null,
     onBackgroundClick: () -> Unit = {}
@@ -70,6 +75,8 @@ fun Flow(
         backgroundDragEventHandler = backgroundDragEventHandler,
         onBackgroundClick = onBackgroundClick
     )
+
+    Grid(grid = grid)
 
     Icons(
         icons = icons,

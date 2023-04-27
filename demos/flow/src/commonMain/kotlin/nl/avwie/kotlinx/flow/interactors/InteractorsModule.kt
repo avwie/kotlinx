@@ -23,5 +23,11 @@ object InteractorsModule {
                 selectorStore = instance()
             )
         }
+
+        bindProvider<UpdateGrid> {
+            UpdateGridImpl(
+                gridStore = instance()
+            )
+        }
     }
 }
