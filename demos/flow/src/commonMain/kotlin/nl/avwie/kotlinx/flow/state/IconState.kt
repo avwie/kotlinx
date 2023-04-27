@@ -11,7 +11,9 @@ data class IconState (
     val position: DpOffset,
     val type: IconType,
     val selected: Boolean = false
-)
+) {
+    val centroid: DpOffset = position + DpOffset(type.size.width / 2, type.size.height / 2)
+}
 
 sealed interface IconType {
     val size: DpSize

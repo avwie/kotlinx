@@ -68,10 +68,10 @@ class IconsViewModel(
 
     fun drag(icon: IconState, offset: DpOffset) {
         if (observeSelectedIcons.value.contains(icon)) {
-            observeSelectedIcons.value.forEach { moveIcon(it, offset) }
+            observeSelectedIcons.value.forEach { moveIcon.relative(it, offset) }
         } else {
             selectIcon.selectOne(icon)
-            moveIcon(icon, offset)
+            moveIcon.relative(icon, offset)
         }
     }
 

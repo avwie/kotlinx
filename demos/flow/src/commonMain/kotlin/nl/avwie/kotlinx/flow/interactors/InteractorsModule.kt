@@ -29,5 +29,12 @@ object InteractorsModule {
                 gridStore = instance()
             )
         }
+
+        bindProvider<SnapIconsToGrid> {
+            SnapIconsToGridImpl(
+                gridStore = instance(),
+                moveIcon = instance()
+            )
+        }
     }
 }
