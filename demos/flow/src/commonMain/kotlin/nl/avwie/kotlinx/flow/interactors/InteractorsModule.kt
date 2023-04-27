@@ -1,7 +1,5 @@
 package nl.avwie.kotlinx.flow.interactors
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.instance
@@ -20,8 +18,8 @@ object InteractorsModule {
             )
         }
 
-        bindProvider<SelectionBox> {
-            SelectionBoxImpl(
+        bindProvider<Selector> {
+            SelectorImpl(
                 selectorStore = instance()
             )
         }

@@ -10,14 +10,14 @@ import kotlinx.coroutines.launch
 import nl.avwie.kotlinx.flow.interactors.MoveIcon
 import nl.avwie.kotlinx.flow.interactors.SelectIcon
 import nl.avwie.kotlinx.flow.observers.ObserveIcons
-import nl.avwie.kotlinx.flow.observers.ObserveSelectionBox
+import nl.avwie.kotlinx.flow.observers.ObserveSelector
 import nl.avwie.kotlinx.flow.state.IconState
 import nl.avwie.kotlinx.flow.store.SelectorStore
 import nl.avwie.kotlinx.ui.ViewModel
 
 class IconsViewModel(
     observeIcons: ObserveIcons,
-    observeSelectionBox: ObserveSelectionBox,
+    observeSelector: ObserveSelector,
     private val moveIcon: MoveIcon,
     private val selectIcon: SelectIcon
 ) : ViewModel(), IconEventHandler {
@@ -31,7 +31,7 @@ class IconsViewModel(
 
     init {
         viewModelScope.launch {
-            observeSelectionBox.selectionEvents.collect { event ->
+            observeSelector.selectorEvents.collect { event ->
                 when (event) {
                     is SelectorStore.Event.Finished -> {
                         selectBox(event.rect)
@@ -54,9 +54,9 @@ class IconsViewModel(
     fun selectBox(rect: DpRect) {
         val selected = state.value.filter { icon ->
             icon.position.x >= rect.left &&
-                    icon.position.x + icon.size.width <= rect.right &&
+                    icon.position.x + icon.type.size.width <= rect.right &&
                     icon.position.y >= rect.top &&
-                    icon.position.y + icon.size.height <= rect.bottom
+                    icon.position.y + icon.type.size.height <= rect.bottom
         }
 
         selectMany(selected)

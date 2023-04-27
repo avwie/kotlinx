@@ -13,8 +13,8 @@ object ObserversModule {
             )
         }
 
-        bindProvider<ObserveSelectionBox> {
-            ObserveSelectionBoxImpl(
+        bindProvider<ObserveSelector> {
+            ObserveSelectorImpl(
                 store = instance()
             )
         }

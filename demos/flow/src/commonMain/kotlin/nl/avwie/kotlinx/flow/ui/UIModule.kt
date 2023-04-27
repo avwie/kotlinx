@@ -20,7 +20,7 @@ object UIModule {
         bindProvider {
             IconsViewModel(
                 observeIcons = instance(),
-                observeSelectionBox = instance(),
+                observeSelector = instance(),
                 selectIcon = instance(),
                 moveIcon = instance(),
             )
@@ -28,8 +28,8 @@ object UIModule {
 
         bindProvider {
             SelectorViewModel(
-                selectionBox = instance(),
-                observeSelectionBox = instance(),
+                selector = instance(),
+                observeSelector = instance(),
             )
         }
     }
