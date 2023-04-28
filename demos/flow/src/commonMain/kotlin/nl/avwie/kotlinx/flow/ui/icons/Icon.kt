@@ -50,6 +50,7 @@ import nl.avwie.kotlinx.utils.compose.toIntOffset
                 onDrag = { offset -> onDrag(density.toDpOffset(offset)) },
                 onDragEnd = { onDragEnd() }
             )
+            .onClick { onClick() }
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -57,7 +58,6 @@ import nl.avwie.kotlinx.utils.compose.toIntOffset
             Canvas(
                 modifier = Modifier
                     .size(width = iconState.type.size.width, height = iconState.type.size.height)
-                    .onClick { onClick() }
             ) {
                 when (iconState.type) {
                     IconType.Start -> StartIcon(iconState)
@@ -66,13 +66,13 @@ import nl.avwie.kotlinx.utils.compose.toIntOffset
                 }
             }
 
-            /*BasicText(
+            BasicText(
                 text = iconState.name,
                 style = TextStyle(
                     fontSize = 11.sp,
                     textAlign = TextAlign.Center
                 )
-            )*/
+            )
         }
 
         if (iconState.selected) {

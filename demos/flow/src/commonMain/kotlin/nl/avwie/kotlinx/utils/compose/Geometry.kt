@@ -9,3 +9,5 @@ fun DpRect.grow(amount: Dp): DpRect = this.copy(
     right = right + amount,
     bottom = bottom + amount
 )
+
+fun DpRect.contains(other: DpRect): Boolean = this.left <= other.left && this.top <= other.top && this.right >= other.right && this.bottom >= other.bottom

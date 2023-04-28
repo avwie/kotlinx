@@ -1,6 +1,7 @@
 package nl.avwie.kotlinx.flow.state
 
 import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.DpRect
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.benasher44.uuid.Uuid
@@ -13,6 +14,7 @@ data class IconState (
     val selected: Boolean = false
 ) {
     val centroid: DpOffset = position + DpOffset(type.size.width / 2, type.size.height / 2)
+    val rect: DpRect = DpRect(position, type.size)
 }
 
 sealed interface IconType {
