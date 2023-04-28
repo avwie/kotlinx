@@ -15,9 +15,8 @@ object InteractorsModule {
 
         bindProvider<DragIcon> {
             DragIconImpl(
-                iconsStore = instance(),
-                gridPosition = instance(),
-                moveIcon = instance()
+                moveIcon = instance(),
+                snapToGrid = instance()
             )
         }
 
@@ -42,6 +41,14 @@ object InteractorsModule {
         bindProvider<GridPosition> {
             GridPositionImpl(
                 gridStore = instance()
+            )
+        }
+
+        bindProvider<SnapToGrid> {
+            SnapToGridImpl(
+                iconsStore = instance(),
+                gridPosition = instance(),
+                moveIcon = instance()
             )
         }
     }

@@ -11,7 +11,10 @@ interface MoveIcon {
         object Centroid : Mode
     }
 
-    operator fun invoke(iconState: IconState, position: DpOffset, mode: Mode = Mode.TopLeft)
+    fun absolute(iconState: IconState, position: DpOffset, mode: Mode = Mode.TopLeft)
+    fun relative(iconState: IconState, offset: DpOffset, mode: Mode = Mode.TopLeft) {
+        absolute(iconState, iconState.position + offset, mode)
+    }
 }
 
 class MoveIconImpl(
@@ -19,7 +22,7 @@ class MoveIconImpl(
     private val gridPosition: GridPosition
 ) : MoveIcon {
 
-    override operator fun invoke(iconState: IconState, position: DpOffset, mode: MoveIcon.Mode) {
+    override fun absolute(iconState: IconState, position: DpOffset, mode: MoveIcon.Mode) {
         val newPosition = when (mode) {
             MoveIcon.Mode.TopLeft -> position
             MoveIcon.Mode.Centroid -> position - DpOffset(iconState.type.size.width / 2, iconState.type.size.height / 2)
