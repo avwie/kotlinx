@@ -65,7 +65,8 @@ class IconsViewModel(
 
     override fun onDragEnd(target: IconState) {
         selectedIcons.value.forEach { iconState ->
-            snapToGrid.snapToGrid(
+            println(startingPositions[iconState.id])
+            snapToGrid(
                 iconState = iconState,
                 mode = SnapToGrid.Mode.SnapBack(startingPositions[iconState.id]!!)
             )

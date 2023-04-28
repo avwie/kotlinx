@@ -12,7 +12,7 @@ interface SnapToGrid {
 
         data class SnapBack(val originalPosition: DpOffset) : Mode
     }
-    fun snapToGrid(iconState: IconState, mode: Mode = Mode.Default)
+    operator fun invoke(iconState: IconState, mode: Mode = Mode.Default)
 }
 
 class SnapToGridImpl(
@@ -20,14 +20,14 @@ class SnapToGridImpl(
     private val gridPosition: GridPosition,
     private val moveIcon: MoveIcon
 ) : SnapToGrid {
-    override fun snapToGrid(iconState: IconState, mode: SnapToGrid.Mode) {
+    override operator fun invoke(iconState: IconState, mode: SnapToGrid.Mode) {
         val (row, col) = gridPosition.getRowAndColumn(iconState.centroid)
         val newPosition = gridPosition.getPosition(row, col, mode = GridPosition.Mode.Centroid)
 
         if (mode is SnapToGrid.Mode.SnapBack) {
             val otherIcons = iconsStore.icons.value.filter { it.id != iconState.id }
             if (otherIcons.any { gridPosition.getRowAndColumn(it.position) == row to col }) {
-                moveIcon.absolute(iconState, mode.originalPosition, mode = MoveIcon.Mode.Centroid)
+                moveIcon.absolute(iconState, mode.originalPosition, mode = MoveIcon.Mode.TopLeft)
                 return
             }
         }
