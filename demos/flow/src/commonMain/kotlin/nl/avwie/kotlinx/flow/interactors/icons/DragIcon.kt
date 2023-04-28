@@ -1,7 +1,8 @@
-package nl.avwie.kotlinx.flow.interactors
+package nl.avwie.kotlinx.flow.interactors.icons
 
 import androidx.compose.ui.unit.DpOffset
 import com.benasher44.uuid.Uuid
+import nl.avwie.kotlinx.flow.interactors.grid.SnapToGrid
 import nl.avwie.kotlinx.flow.state.IconState
 
 interface DragIcon {

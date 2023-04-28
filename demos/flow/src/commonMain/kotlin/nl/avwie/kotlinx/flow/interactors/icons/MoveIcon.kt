@@ -1,6 +1,7 @@
-package nl.avwie.kotlinx.flow.interactors
+package nl.avwie.kotlinx.flow.interactors.icons
 
 import androidx.compose.ui.unit.DpOffset
+import nl.avwie.kotlinx.flow.interactors.grid.GridPosition
 import nl.avwie.kotlinx.flow.state.IconState
 import nl.avwie.kotlinx.flow.store.IconsStore
 

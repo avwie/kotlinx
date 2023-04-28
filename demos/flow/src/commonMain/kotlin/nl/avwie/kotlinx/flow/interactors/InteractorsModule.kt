@@ -1,5 +1,9 @@
 package nl.avwie.kotlinx.flow.interactors
 
+import nl.avwie.kotlinx.flow.interactors.grid.*
+import nl.avwie.kotlinx.flow.interactors.icons.*
+import nl.avwie.kotlinx.flow.interactors.selector.Selector
+import nl.avwie.kotlinx.flow.interactors.selector.SelectorImpl
 import org.kodein.di.DI
 import org.kodein.di.bindProvider
 import org.kodein.di.instance

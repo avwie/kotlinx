@@ -3,8 +3,8 @@ package nl.avwie.kotlinx.flow.ui.icons
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.DpRect
 import kotlinx.coroutines.launch
-import nl.avwie.kotlinx.flow.interactors.DragIcon
-import nl.avwie.kotlinx.flow.interactors.SelectIcon
+import nl.avwie.kotlinx.flow.interactors.icons.DragIcon
+import nl.avwie.kotlinx.flow.interactors.icons.SelectIcon
 import nl.avwie.kotlinx.flow.observers.ObserveIcons
 import nl.avwie.kotlinx.flow.observers.ObserveSelector
 import nl.avwie.kotlinx.flow.state.IconState

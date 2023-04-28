@@ -1,7 +1,7 @@
 package nl.avwie.kotlinx.flow.ui.selector
 
 import androidx.compose.ui.unit.DpOffset
-import nl.avwie.kotlinx.flow.interactors.Selector
+import nl.avwie.kotlinx.flow.interactors.selector.Selector
 import nl.avwie.kotlinx.flow.observers.ObserveSelector
 import nl.avwie.kotlinx.flow.ui.common.DragEventHandler
 import nl.avwie.kotlinx.ui.ViewModel

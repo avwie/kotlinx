@@ -22,9 +22,27 @@ import nl.avwie.kotlinx.flow.store.GridStore
 
         (0 .. rows).forEach { i ->
             drawLine(
+                start = Offset(x = 0f, y = i * grid.rowHeight.toPx() + grid.rowHeight.toPx() / 2),
+                end = Offset(x = size.width, y = i * grid.rowHeight.toPx() + grid.rowHeight.toPx() / 2),
+                color = Color(0xffeeeeee),
+                strokeWidth = 1f
+            )
+        }
+
+        (0 .. rows).forEach { i ->
+            drawLine(
                 start = Offset(x = 0f, y = i * grid.rowHeight.toPx()),
                 end = Offset(x = size.width, y = i * grid.rowHeight.toPx()),
                 color = Color(0xffcccccc),
+                strokeWidth = 1f
+            )
+        }
+
+        (0 .. cols).forEach { i ->
+            drawLine(
+                start = Offset(x = i * grid.columnWidth.toPx() + grid.columnWidth.toPx() / 2, y = 0f),
+                end = Offset(x = i * grid.columnWidth.toPx() + grid.columnWidth.toPx() / 2, y = size.height),
+                color = Color(0xffeeeeee),
                 strokeWidth = 1f
             )
         }

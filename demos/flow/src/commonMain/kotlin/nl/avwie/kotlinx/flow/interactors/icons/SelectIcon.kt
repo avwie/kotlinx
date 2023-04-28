@@ -1,7 +1,6 @@
-package nl.avwie.kotlinx.flow.interactors
+package nl.avwie.kotlinx.flow.interactors.icons
 
 import androidx.compose.ui.unit.DpRect
-import kotlinx.coroutines.flow.*
 import nl.avwie.kotlinx.flow.state.IconState
 import nl.avwie.kotlinx.flow.store.IconsStore
 import nl.avwie.kotlinx.utils.compose.contains

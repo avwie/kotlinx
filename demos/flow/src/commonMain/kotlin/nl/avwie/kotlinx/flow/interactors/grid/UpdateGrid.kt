@@ -1,4 +1,4 @@
-package nl.avwie.kotlinx.flow.interactors
+package nl.avwie.kotlinx.flow.interactors.grid
 
 import nl.avwie.kotlinx.flow.store.GridStore
 
