@@ -8,7 +8,16 @@ object InteractorsModule {
     operator fun invoke() = DI.Module(name = "Interactors") {
         bindProvider<MoveIcon> {
             MoveIconImpl(
-                iconsStore = instance()
+                iconsStore = instance(),
+                gridPosition = instance()
+            )
+        }
+
+        bindProvider<DragIcon> {
+            DragIconImpl(
+                iconsStore = instance(),
+                gridPosition = instance(),
+                moveIcon = instance()
             )
         }
 
@@ -30,10 +39,9 @@ object InteractorsModule {
             )
         }
 
-        bindProvider<SnapIconsToGrid> {
-            SnapIconsToGridImpl(
-                gridStore = instance(),
-                moveIcon = instance()
+        bindProvider<GridPosition> {
+            GridPositionImpl(
+                gridStore = instance()
             )
         }
     }

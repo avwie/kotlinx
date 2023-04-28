@@ -9,3 +9,11 @@ interface DragEventHandler {
 
     fun onDragEnd()
 }
+
+interface TargetedDragEventHandler<T> {
+    fun onDragStart(target: T, offset: DpOffset)
+
+    fun onDrag(target: T, offset: DpOffset)
+
+    fun onDragEnd(target: T)
+}

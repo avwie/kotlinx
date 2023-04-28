@@ -16,8 +16,6 @@ object UIModule {
                 icons = instance(),
                 selector = instance(),
                 grid = instance(),
-                observeIcons = instance(),
-                snapIconsToGrid = instance(),
             )
         }
 
@@ -25,8 +23,8 @@ object UIModule {
             IconsViewModel(
                 observeIcons = instance(),
                 observeSelector = instance(),
+                dragIcon = instance(),
                 selectIcon = instance(),
-                moveIcon = instance(),
             )
         }
 

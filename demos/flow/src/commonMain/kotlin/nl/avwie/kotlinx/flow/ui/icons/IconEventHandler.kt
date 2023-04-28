@@ -1,9 +1,7 @@
 package nl.avwie.kotlinx.flow.ui.icons
 
-import androidx.compose.ui.unit.DpOffset
 import nl.avwie.kotlinx.flow.state.IconState
+import nl.avwie.kotlinx.flow.ui.common.TargetedClickEventHandler
+import nl.avwie.kotlinx.flow.ui.common.TargetedDragEventHandler
 
-interface IconEventHandler {
-    fun onIconClick(icon: IconState)
-    fun onIconDrag(icon: IconState, offset: DpOffset)
-}
+interface IconEventHandler : TargetedDragEventHandler<IconState>, TargetedClickEventHandler<IconState>

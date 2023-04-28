@@ -36,13 +36,20 @@ import nl.avwie.kotlinx.utils.compose.toIntOffset
 @Composable fun Icon(
     iconState: IconState,
     onClick: () -> Unit = { },
-    onDrag: (DpOffset) -> Unit = { }
+    onDragStart: (DpOffset) -> Unit = { },
+    onDrag: (DpOffset) -> Unit = { },
+    onDragEnd: () -> Unit = { },
 ) {
     val density = LocalDensity.current
 
     Box(
         modifier = Modifier
             .offset { toIntOffset(iconState.position) }
+            .onDrag(
+                onDragStart = { offset -> onDragStart(density.toDpOffset(offset)) },
+                onDrag = { offset -> onDrag(density.toDpOffset(offset)) },
+                onDragEnd = { onDragEnd() }
+            )
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -51,7 +58,6 @@ import nl.avwie.kotlinx.utils.compose.toIntOffset
                 modifier = Modifier
                     .size(width = iconState.type.size.width, height = iconState.type.size.height)
                     .onClick { onClick() }
-                    .onDrag { offset -> onDrag(density.toDpOffset(offset)) }
             ) {
                 when (iconState.type) {
                     IconType.Start -> StartIcon(iconState)
@@ -60,13 +66,13 @@ import nl.avwie.kotlinx.utils.compose.toIntOffset
                 }
             }
 
-            BasicText(
+            /*BasicText(
                 text = iconState.name,
                 style = TextStyle(
                     fontSize = 11.sp,
                     textAlign = TextAlign.Center
                 )
-            )
+            )*/
         }
 
         if (iconState.selected) {

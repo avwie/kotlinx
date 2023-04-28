@@ -10,8 +10,10 @@ import nl.avwie.kotlinx.flow.state.IconState
     icons.forEach { element ->
         Icon(
             iconState = element,
-            onClick = { iconEventHandler?.onIconClick(element) },
-            onDrag = { offset -> iconEventHandler?.onIconDrag(element, offset) }
+            onClick = { iconEventHandler?.onClick(element) },
+            onDragStart = { offset -> iconEventHandler?.onDragStart(element, offset) },
+            onDrag = { offset -> iconEventHandler?.onDrag(element, offset) },
+            onDragEnd = { iconEventHandler?.onDragEnd(element) }
         )
     }
 }

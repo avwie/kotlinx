@@ -1,13 +1,8 @@
 package nl.avwie.kotlinx.flow.ui.icons
 
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.unit.DpOffset
-import androidx.compose.ui.unit.DpRect
-import app.cash.molecule.RecompositionClock
-import app.cash.molecule.launchMolecule
 import kotlinx.coroutines.launch
-import nl.avwie.kotlinx.flow.interactors.MoveIcon
+import nl.avwie.kotlinx.flow.interactors.DragIcon
 import nl.avwie.kotlinx.flow.interactors.SelectIcon
 import nl.avwie.kotlinx.flow.observers.ObserveIcons
 import nl.avwie.kotlinx.flow.observers.ObserveSelector
@@ -18,68 +13,42 @@ import nl.avwie.kotlinx.ui.ViewModel
 class IconsViewModel(
     observeIcons: ObserveIcons,
     observeSelector: ObserveSelector,
-    private val moveIcon: MoveIcon,
-    private val selectIcon: SelectIcon
+    private val selectIcon: SelectIcon,
+    private val dragIcon: DragIcon
 ) : ViewModel(), IconEventHandler {
 
-    private val observeSelectedIcons = observeIcons.filter { it.selected }
-
-    val state = viewModelScope.launchMolecule (RecompositionClock.Immediate) {
-        val icons by observeIcons.flow.collectAsState(listOf())
-        icons
-    }
+    val state = observeIcons.flow
 
     init {
         viewModelScope.launch {
             observeSelector.selectorEvents.collect { event ->
                 when (event) {
                     is SelectorStore.Event.Finished -> {
-                        selectBox(event.rect)
+                        //selectBox(event.rect)
                     }
                 }
             }
         }
     }
 
-    fun select(icon: IconState?) = when {
-        icon == null -> selectIcon.deselectAll()
-        observeSelectedIcons.value.contains(icon) -> {}
-        else -> selectIcon.selectOne(icon)
+    override fun onClick(target: IconState) {
+        selectIcon.selectOne(target)
     }
 
-    fun selectMany(icons: List<IconState>) {
-        selectIcon.selectMany(icons)
+    override fun onDragStart(target: IconState, offset: DpOffset) {
+        selectIcon.selectOne(target)
+        dragIcon.start(target)
     }
 
-    fun selectBox(rect: DpRect) {
-        val selected = state.value.filter { icon ->
-            icon.position.x >= rect.left &&
-                    icon.position.x + icon.type.size.width <= rect.right &&
-                    icon.position.y >= rect.top &&
-                    icon.position.y + icon.type.size.height <= rect.bottom
-        }
+    override fun onDrag(target: IconState, offset: DpOffset) {
+        dragIcon.drag(target, offset)
+    }
 
-        selectMany(selected)
+    override fun onDragEnd(target: IconState) {
+        dragIcon.end(target, mode = DragIcon.Mode.SnapToGrid(snapBack = true))
     }
 
     fun deselect() {
         selectIcon.deselectAll()
-    }
-
-    fun drag(icon: IconState, offset: DpOffset) {
-        if (observeSelectedIcons.value.contains(icon)) {
-            observeSelectedIcons.value.forEach { moveIcon.relative(it, offset) }
-        } else {
-            selectIcon.selectOne(icon)
-            moveIcon.relative(icon, offset)
-        }
-    }
-
-    override fun onIconClick(icon: IconState) {
-        select(icon)
-    }
-
-    override fun onIconDrag(icon: IconState, offset: DpOffset) {
-        drag(icon, offset)
     }
 }
