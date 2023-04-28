@@ -27,6 +27,7 @@ import org.kodein.di.compose.rememberInstance
             .size(100.dp)
             .offset { IntOffset(element.position.first.dp.toPx().toInt(), element.position.second.dp.toPx().toInt()) }
             .onDrag {
+                println("Dragged ${it}")
                 moveElement(element, it, density)
             }
     ) {
