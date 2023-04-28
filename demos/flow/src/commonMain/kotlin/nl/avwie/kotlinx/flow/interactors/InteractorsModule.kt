@@ -17,13 +17,6 @@ object InteractorsModule {
             )
         }
 
-        bindProvider<DragIcon> {
-            DragIconImpl(
-                moveIcon = instance(),
-                snapToGrid = instance()
-            )
-        }
-
         bindProvider<SelectIcon> {
             SelectIconImpl(
                 iconsStore = instance()

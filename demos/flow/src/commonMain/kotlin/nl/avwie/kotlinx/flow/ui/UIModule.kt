@@ -23,8 +23,9 @@ object UIModule {
             IconsViewModel(
                 observeIcons = instance(),
                 observeSelector = instance(),
-                dragIcon = instance(),
                 selectIcon = instance(),
+                moveIcon = instance(),
+                snapToGrid = instance(),
             )
         }
 

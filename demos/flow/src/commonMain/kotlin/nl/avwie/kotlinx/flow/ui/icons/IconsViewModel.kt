@@ -2,8 +2,10 @@ package nl.avwie.kotlinx.flow.ui.icons
 
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.DpRect
+import com.benasher44.uuid.Uuid
 import kotlinx.coroutines.launch
-import nl.avwie.kotlinx.flow.interactors.icons.DragIcon
+import nl.avwie.kotlinx.flow.interactors.grid.SnapToGrid
+import nl.avwie.kotlinx.flow.interactors.icons.MoveIcon
 import nl.avwie.kotlinx.flow.interactors.icons.SelectIcon
 import nl.avwie.kotlinx.flow.observers.ObserveIcons
 import nl.avwie.kotlinx.flow.observers.ObserveSelector
@@ -15,10 +17,13 @@ class IconsViewModel(
     observeIcons: ObserveIcons,
     observeSelector: ObserveSelector,
     private val selectIcon: SelectIcon,
-    private val dragIcon: DragIcon
+    private val moveIcon: MoveIcon,
+    private val snapToGrid: SnapToGrid
 ) : ViewModel(), IconEventHandler {
 
     val state = observeIcons.flow
+
+    private val startingPositions = mutableMapOf<Uuid, DpOffset>()
 
     private val selectedIcons = observeIcons.filter { it.selected }
 
@@ -42,25 +47,29 @@ class IconsViewModel(
         when {
             selectedIcons.value.contains(target) -> {
                 selectedIcons.value.forEach { iconState ->
-                    dragIcon.start(iconState)
+                    startingPositions[iconState.id] = iconState.position
                 }
             }
             else -> {
                 selectIcon.selectOne(target)
-                dragIcon.start(target)
+                startingPositions[target.id] = target.position
             }
         }
     }
 
     override fun onDrag(target: IconState, offset: DpOffset) {
         selectedIcons.value.forEach { iconState ->
-            dragIcon.drag(iconState, offset)
+            moveIcon.relative(iconState, offset)
         }
     }
 
     override fun onDragEnd(target: IconState) {
         selectedIcons.value.forEach { iconState ->
-            dragIcon.end(iconState, mode = DragIcon.Mode.SnapToGrid(snapBack = true))
+            snapToGrid.snapToGrid(
+                iconState = iconState,
+                mode = SnapToGrid.Mode.SnapBack(startingPositions[iconState.id]!!)
+            )
+            startingPositions.remove(iconState.id)
         }
     }
 
