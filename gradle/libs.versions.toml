@@ -1,15 +1,15 @@
 [versions]
 # Jetbrains
-jetbrains-kotlin = "1.8.20"
-jetbrains-compose = "1.4.0"
-jetbrains-coroutines-core = "1.6.4"
+jetbrains-kotlin = "1.9.0"
+jetbrains-compose = "1.4.3"
+jetbrains-coroutines-core = "1.7.3"
 jetbrains-datetime = "0.4.0"
-jetbrains-serialization-json = "1.4.1"
+jetbrains-serialization-json = "1.5.1"
 jetbrains-collections-immutable = "0.3.5"
 
 # Other
-uuid = "0.6.0"
-kodein-di = "7.18.0"
+uuid = "0.8.0"
+kodein-di = "7.20.2"
 flowext = "0.5.0"
 
 [libraries]
