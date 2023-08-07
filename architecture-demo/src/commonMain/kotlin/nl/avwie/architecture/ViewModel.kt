@@ -4,11 +4,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.StateFlow
 
-interface ViewModel<S> {
+interface ReadViewModel<S> {
     val state: StateFlow<S>
-    val scope: CoroutineScope
+}
+
+interface ViewModel<S> : ReadViewModel<S> {
+    val scope: CoroutineScope?
 
     fun dispose() {
-        scope.cancel()
+        scope?.cancel()
     }
 }
