@@ -6,17 +6,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import nl.avwie.architecture.ViewModel
+import nl.avwie.architecture.StatefulViewModel
 
-interface TodoWriteViewModel {
+interface TodoMutableViewModel {
     fun addTodoItem(name: String)
     fun toggleTodoItem(id: String)
     fun removeTodoItem(id: String)
 }
 
-interface TodoViewModel : ViewModel<TodoState>, TodoWriteViewModel
+interface TodoViewModel : StatefulViewModel<TodoState>, TodoMutableViewModel
+
 class TodoViewModelImpl(
-    override val scope: CoroutineScope? = null
+    override val scope: CoroutineScope,
 ) : TodoViewModel {
 
     private val _state = MutableStateFlow(TodoState.EMPTY)

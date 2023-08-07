@@ -4,10 +4,11 @@ package util
 @JsExport()
 interface Publisher<T> {
     fun subscribe(subscriber: Subscriber<T>): Subscription
+    fun publish(event: T)
 }
 
 @JsExport()
-abstract class PublisherImpl<T> : Publisher<T> {
+class PublisherImpl<T> : Publisher<T> {
     private val subscribers = mutableListOf<Subscriber<T>>()
 
     override fun subscribe(subscriber: Subscriber<T>): Subscription {
@@ -15,7 +16,7 @@ abstract class PublisherImpl<T> : Publisher<T> {
         return Subscription { subscribers.remove(subscriber) }
     }
 
-    fun publish(event: T) {
+    override fun publish(event: T) {
         subscribers.forEach { it.onEvent(event) }
     }
 }
