@@ -7,7 +7,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import nl.avwie.architecture.StatefulViewModel
+import kotlin.js.ExperimentalJsExport
+import kotlin.js.JsExport
 
+@OptIn(ExperimentalJsExport::class)
+@JsExport
 interface TodoMutableViewModel {
     fun addTodoItem(name: String)
     fun toggleTodoItem(id: String)
