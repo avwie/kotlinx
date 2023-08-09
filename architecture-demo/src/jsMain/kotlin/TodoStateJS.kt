@@ -1,5 +1,4 @@
 @file:OptIn(ExperimentalJsExport::class)
-package todo
 
 import nl.avwie.architecture.todo.TodoItem
 import nl.avwie.architecture.todo.TodoState
