@@ -19,8 +19,8 @@ interface UseTodoViewModelResponse {
 
 @JsExport()
 fun useTodoViewModel(): UseTodoViewModelResponse {
-    println("Creating TodoViewModel")
     val (viewModel, setViewModel ) = useState<TodoViewModel>(TodoViewModelImpl(CoroutineScope(Dispatchers.Default)))
+
     val state = useFlow(viewModel.state, TodoStateJS.fromState(TodoState.EMPTY)) {
         TodoStateJS.fromState(it)
     }

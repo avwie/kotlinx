@@ -6,13 +6,12 @@ import react.useEffect
 import react.useState
 import kotlin.coroutines.CoroutineContext
 
-fun useCoroutineScope(context: CoroutineContext, ref: Any? = null): CoroutineScope {
-    val (scope, ) = useState(CoroutineScope(context))
-    println("Creating scope: $ref")
+fun useCoroutineScope(context: CoroutineContext, ref: Any = Unit): CoroutineScope {
+    val (scope, setScope) = useState(CoroutineScope(context))
 
-    useEffect(Unit, ref) {
+    useEffect(Unit) {
+        setScope { CoroutineScope(context) }
         cleanup {
-            println("Cleaning scope: $ref")
             scope.cancel()
         }
     }
@@ -24,11 +23,10 @@ fun <T, U> useFlow(
     initialValue: U,
     transform: (T) -> U
 ): U {
-    println("Creating flow: ${flow.hashCode()}")
     val (state, setState) = useState(initialValue)
-    val scope = useCoroutineScope(Dispatchers.Default, flow.hashCode())
+    val scope = useCoroutineScope(Dispatchers.Default)
 
-    useEffect(Unit) {
+    useEffect(scope) {
         scope.launch {
             flow.collect {
                 setState(transform(it))

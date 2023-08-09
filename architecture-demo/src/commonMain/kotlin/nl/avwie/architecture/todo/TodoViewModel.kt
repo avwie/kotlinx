@@ -27,12 +27,7 @@ class TodoViewModelImpl(
     private val _state = MutableStateFlow(TodoState.EMPTY)
     override val state: StateFlow<TodoState> = _state.asStateFlow()
 
-    init {
-        println("TodoViewModelImpl created, state: ${state.hashCode()}")
-    }
-
     override fun addTodoItem(name: String) = _state.update {
-        println("addTodoItem, state: ${state.hashCode()}")
         val item = TodoItem(uuid4().toString(),  name, false)
         TodoState(it.todoItems + item)
     }
