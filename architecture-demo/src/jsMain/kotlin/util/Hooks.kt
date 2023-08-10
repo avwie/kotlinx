@@ -6,13 +6,13 @@ import react.useEffect
 import react.useState
 import kotlin.coroutines.CoroutineContext
 
-fun useCoroutineScope(context: CoroutineContext, ref: Any = Unit): CoroutineScope {
-    val (scope, setScope) = useState(CoroutineScope(context))
+fun useCoroutineScope(context: CoroutineContext): CoroutineScope? {
+    val (scope, setScope) = useState<CoroutineScope>()
 
     useEffect(Unit) {
         setScope { CoroutineScope(context) }
         cleanup {
-            scope.cancel()
+            scope?.cancel()
         }
     }
     return scope
@@ -27,7 +27,7 @@ fun <T, U> useFlow(
     val scope = useCoroutineScope(Dispatchers.Default)
 
     useEffect(scope) {
-        scope.launch {
+        scope?.launch {
             flow.collect {
                 setState(transform(it))
             }

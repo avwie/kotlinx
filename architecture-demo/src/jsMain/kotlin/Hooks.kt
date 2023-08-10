@@ -1,32 +1,45 @@
 @file:OptIn(ExperimentalJsExport::class)
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import nl.avwie.architecture.todo.TodoMutableViewModel
-import nl.avwie.architecture.todo.TodoState
-import nl.avwie.architecture.todo.TodoViewModel
-import nl.avwie.architecture.todo.TodoViewModelImpl
-import react.useEffect
+import nl.avwie.architecture.Interactor
+import nl.avwie.architecture.ViewModel
+import nl.avwie.architecture.todo.*
 import react.useState
-import util.useCoroutineScope
 import util.useFlow
 
 @JsExport()
 interface UseTodoViewModelResponse {
     val state: TodoStateJS
-    val mutableViewModel: TodoMutableViewModel
+    val interactor: TodoInteractor
 }
 
 @JsExport()
-fun useTodoViewModel(): UseTodoViewModelResponse {
-    val (viewModel, setViewModel ) = useState<TodoViewModel>(TodoViewModelImpl(CoroutineScope(Dispatchers.Default)))
+interface UseViewModelResponse<S, I> {
+    val state: S?
+    val interactor: I
+}
 
-    val state = useFlow(viewModel.state, TodoStateJS.fromState(TodoState.EMPTY)) {
-        TodoStateJS.fromState(it)
+@JsExport()
+fun useTodoViewModel() = useViewModel(
+    builder = { TodoViewModelImpl() },
+    initialState = TodoStateJS.fromState(TodoState.EMPTY),
+    transform = { TodoStateJS.fromState(it) }
+)
+
+fun <V, S, I, S2> useViewModel(
+    builder: () -> V,
+    initialState: S2,
+    transform: (S) -> S2
+):  UseViewModelResponse<S2, I>
+    where V : ViewModel<S, I>, I : Interactor
+{
+    val (viewModel,  ) = useState { builder() }
+
+    val state = useFlow(viewModel.asStateHolder().state, initialState) {
+        transform(it)
     }
 
-    return object : UseTodoViewModelResponse {
-        override val mutableViewModel: TodoMutableViewModel = viewModel
-        override val state: TodoStateJS = state
+    return object : UseViewModelResponse<S2, I> {
+        override val interactor: I = viewModel.asInteractor()
+        override val state: S2 = state
     }
 }
