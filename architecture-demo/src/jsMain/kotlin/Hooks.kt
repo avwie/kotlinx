@@ -7,14 +7,8 @@ import react.useState
 import util.useFlow
 
 @JsExport()
-interface UseTodoViewModelResponse {
-    val state: TodoStateJS
-    val interactor: TodoInteractor
-}
-
-@JsExport()
 interface UseViewModelResponse<S, I> {
-    val state: S?
+    val state: S
     val interactor: I
 }
 
