@@ -6,6 +6,7 @@ kotlin {
 
     js(IR) {
         moduleName = "architecture-demo"
+        useCommonJs()
 
         browser {}
         binaries.library()
